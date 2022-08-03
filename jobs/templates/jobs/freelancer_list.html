@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1 class="text-4xl font-bold mb-8">All Freelance Developers</h1>
-    <div class="shadow">
+    <div class="shadow bg-white">
         {% for freelancer in object_list %}
         <a href="{% url 'freelancer-detail' freelancer.pk %}">
         <div class="p-6 border flex items-center">
