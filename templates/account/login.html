@@ -1,0 +1,15 @@
+{% extends 'jobs/_base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="px-20">
+    <h1 class="text-2xl my-4"> Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class="px-8 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 hover:cursor-pointer" type="submit" value="Login">
+    </form>
+    <p class="py-4">Don't have an account? <a class="text-blue-500 underline" href="{% url 'account_signup' %}">Sign up here.</a></p>
+</div>
+
+{% endblock content %}

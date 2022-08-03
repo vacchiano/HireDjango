@@ -1,0 +1,23 @@
+{% extends 'jobs/_base.html' %}
+
+{% block content %}
+<div class="flex">
+    <div>
+        {% if freelancer.profile_pic %}
+                <img class="w-32 border rounded-full mr-4" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
+        {% endif %}
+    </div>
+    <div>
+        <h1 class="text-3xl font-semibold">{{object.name}}</h1>
+        <p class="text-lg text-gray-800 my-2">{{object.tagline}}</p>
+        {% if object.website %}
+        <p><a class="text-blue-600 underline" target="_blank" href={{object.website}} alt="dev website">Website</a></p>
+        {% else %}
+        <p class="text-gray-600">No website</p>
+        {% endif %}
+    </div>
+</div>
+    <hr class="my-4">
+    {{object.bio}}
+
+{% endblock content %}

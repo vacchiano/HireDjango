@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="w-full max-w-7xl mx-auto min-h-screen">
+        <div class="text-gray-400 bg-gray-800 flex flex-col max-w-screen-xl p-5 mx-auto md:items-start md:justify-between md:flex-row md:px-6 md:py-4 lg:px-8 border-b">
+            <div class="flex flex-row items-center justify-between lg:justify-start">
+                <a href="{% url 'home' %}" class="text-3xl font-bold tracking-tighter text-gray-200 lg:pr-2">HireDjango</a>
+            </div>
+    
+            <nav class="flex-col items-center flex-grow hidden pb-4 md:pb-0 md:flex md:justify-start md:flex-row lg:pl-2">
+                <a class="font-semibold px-6 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Developers</a>
+                <a class="font-semibold px-6 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Pricing</a>
+                <a class="font-semibold px-6 py-2 rounded hover:text-white hover:cursor-pointer">About</a>
+                
+                <div class="inline-flex items-center gap-2 list-none md:ml-auto">
+                    {% if user.is_authenticated %}
+                    <p>{{user.email}}</p>
+                    {% if user.freelancer.profile_pic %}
+                    <img class="w-10 border rounded-full mr-4" src="{{ user.freelancer.profile_pic.url }}" alt="Profile pic">
+                    {% endif %}
+                    {% if user.business.profile_pic %}
+                    <img class="w-10 border rounded-full mr-4" src="{{ user.business.profile_pic.url }}" alt="Profile pic">
+                    {% endif %}
+                    <form action="{% url 'account_logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="items-center block px-10 py-2.5 text-base font-medium text-center text-blue-600 transition duration-500 ease-in-out transform border-2 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Logout</button>
+                    </form>
+                    {% else %}
+                    <a href="{% url 'account_login' %}">
+                        <button class="font-semibold px-6 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Sign in</button>
+                    </a>
+                    <a href="{% url 'account_signup' %}">
+                        <button class="leading-relaxed block px-10 py-2 text-base font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Sign up</button>
+                    </a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+    <footer class="text-gray-600 body-font border-t">
+        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+          <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+            <span class="ml-3 text-xl">HireDjango</span>
+          </a>
+          <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2022 HireDjango —
+            <a href="https://www.twitter.com/domvacchiano" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@DomVacchiano</a>
+          </p>
+          <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+            <a class="ml-3 text-gray-500 hover:text-black" target="_blank" href="https://www.twitter.com/domvacchiano">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+          </span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'jobs/_base.html' %}
+
+{% block content %}
+<h1 class="text-3xl font-semibold text-center mb-16">Choose your account type:</h1>
+<div class="flex gap-10 justify-center items-center">
+    <div class="border-4 border-dashed rounded hover:border-green-600">
+        <a href="{% url 'freelancer-create' %}">
+            <p class="p-28 font-semibold">Freelancer</p>
+        </a>
+    </div>
+    <p>or</p>
+    <div class="border-4 border-dashed rounded hover:border-green-600">
+        <a href="{% url 'business-create' %}">
+            <p class="p-28 font-semibold">Business</p>
+        </a>
+    </div>
+</div>
+{% endblock content %}

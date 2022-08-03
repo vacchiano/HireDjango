@@ -1,0 +1,27 @@
+{% extends 'jobs/_base.html' %}
+
+{% block content %}
+    <h1 class="text-4xl font-bold mb-8">All Freelance Developers</h1>
+    <div class="shadow">
+        {% for freelancer in object_list %}
+        <a href="{% url 'freelancer-detail' freelancer.pk %}">
+        <div class="p-6 border flex items-center">
+            <div>
+                {% if freelancer.profile_pic %}
+                <img class="w-20 border rounded-full mr-4" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
+                {% endif %}
+            </div>
+            <div>
+                <p class="text-lg font-semibold">
+                    {{freelancer.name}}
+                </p>
+                <p class="text-gray-700 pt-4">
+                    {{freelancer.tagline}}
+                </p>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+
+{% endblock content %}
