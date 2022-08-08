@@ -4,8 +4,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Freelancer(models.Model):
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to="'profiles/", blank=True)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="freelancer")
+    profile_pic = models.ImageField(upload_to="profiles/", blank=True)
     name = models.CharField(max_length=100)
     tagline = models.CharField(max_length=255)
     bio = models.TextField(blank=True)
@@ -16,7 +16,7 @@ class Freelancer(models.Model):
 
 class Business(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to="'profiles/", blank=True)
+    profile_pic = models.ImageField(upload_to="profiles/", blank=True)
     name = models.CharField(max_length=100)
     bio = models.TextField(blank=True)
 

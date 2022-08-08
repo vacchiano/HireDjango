@@ -9,6 +9,9 @@ from .models import Freelancer, Business
 def index(request):
     return render(request, 'jobs/index.html')
 
+def about(request):
+    return render(request, 'jobs/about.html')
+
 class FreelancerListView(ListView):
     model = Freelancer
 

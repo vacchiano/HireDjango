@@ -14,16 +14,16 @@
                 <a href="{% url 'home' %}" class="text-3xl font-bold tracking-tighter text-gray-200 hover:text-white lg:pr-2">HireDjango</a>
             </div>
     
-            <nav class="flex-col items-center flex-grow hidden pb-4 md:pb-0 md:flex md:justify-start md:flex-row lg:pl-2">
+            <nav class="flex-col items-center flex-grow hidden pb-4 md:pb-0 md:flex md:justify-start md:flex-row md:pl-2">
                 <a href="{% url 'freelancer-list' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Developers</a>
                 <a class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Pricing</a>
-                <a class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">About</a>
+                <a href="{% url 'about' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">About</a>
                 
                 <div class="inline-flex items-center gap-2 list-none md:ml-auto">
                     {% if user.is_authenticated %}
                     <p>{{user.email}}</p>
                     {% if user.freelancer.profile_pic %}
-                    <img class="w-12 h-12 border-2 rounded-full mr-4" src="{{ user.freelancer.profile_pic.url }}" alt="Profile pic">
+                    <img class="w-12 h-12 border-2 rounded-full mr-4" src="{{ user.freelancer.profile_pic.url }}"" alt="Profile pic">
                     {% endif %}
                     {% if user.business.profile_pic %}
                     <img class="w-10 border rounded-full mr-4" src="{{ user.business.profile_pic.url }}" alt="Profile pic">
