@@ -1,23 +1,121 @@
 {% extends 'jobs/_base.html' %}
 
 {% block content %}
-<div class="flex">
-    <div>
-        {% if freelancer.profile_pic %}
-                <img class="w-32 border rounded-full mr-4" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
-        {% endif %}
+<div class="shadow bg-white rounded-md p-8 md:p-16 max-w-6xl mx-auto flex flex-col md:flex-row md:divide-x md:divide-x-gray-100">
+    <div class="flex flex-col items-start md:px-12 w-full md:w-4/5">
+        <div class="flex flex-col items-start w-full">
+            <div class="flex flex-col md:flex-row w-full md:items-center">
+                <div>
+                    {% if freelancer.profile_pic %}
+                    <img class="w-32 outline outline-gray-200 rounded-full mr-4" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
+                    {% else %}
+                    <img class="w-32 outline outline-gray-200 rounded-full mr-4" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
+                    {% endif %}
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-auto">
+                    {% if freelancer.search_status == "active" %}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-md font-medium bg-green-100 text-green-800">
+                            <svg class="-ml-0.5 mr-1 h-4 w-4 text-green-400" fill="currentColor" viewBox="0 0 8 8">
+                    {% elif freelancer.search_status == "invisible" %}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-md font-medium bg-gray-100 text-gray-800">
+                            <svg class="-ml-0.5 mr-1 h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 8 8">
+                    {% else %}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-md font-medium bg-yellow-100 text-yellow-800">
+                            <svg class="-ml-0.5 mr-1 h-4 w-4 text-yellow-400" fill="currentColor" viewBox="0 0 8 8">
+                    {% endif %}
+                          <circle cx="4" cy="4" r="3" />
+                        </svg>
+                        {{freelancer.search_status|title}}
+                    </span>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h1 class="text-2xl font-bold text-gray-900">{{object.tagline}}</h1>
+                <h3 class="text-xl text-gray-700 my-2">{{object.name}}</h3>
+                <p class="text-sm font-semibold text-gray-700">Available: {{object.available_date}}</p>
+            </div>
+        </div>
+        <div>
+            <hr class="my-6">
+            <div class="">
+                <div class="mb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-sm font-semibold text-gray-500">About</p>
+                </div>
+                <p class="text-lg">{{object.bio}}</p>
+            </div>
+        </div>
     </div>
-    <div>
-        <h1 class="text-3xl font-semibold">{{object.name}}</h1>
-        <p class="text-lg text-gray-800 my-2">{{object.tagline}}</p>
-        {% if object.website %}
-        <p><a class="text-blue-600 underline" target="_blank" href={{object.website}} alt="dev website">Website</a></p>
-        {% else %}
-        <p class="text-gray-600">No website</p>
-        {% endif %}
+    <div class="flex items-start justify-start w-full mt-8 md:mt-0 md:w-1/5">
+        <div class="md:px-12">
+            <div>
+                <div class="mb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                        <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                    </svg>
+                    <p class="text-sm font-semibold text-gray-500">Roles</p>
+                </div>
+                {% for role in object.role_type.all %}
+                <p>{{role.name}}</p>
+                {% endfor %}
+            <hr class="my-4" />
+            <div class="mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+                </svg>
+                <p class="text-sm font-semibold text-gray-500">Experience</p>
+            </div>
+                {% for level in object.role_level.all %}
+                <p>{{level}}</p>
+                {% endfor %}
+            </div>
+            <hr class="my-4" />
+            <div>
+                <div class="mb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                    <p class="text-sm font-semibold text-gray-500">Contact</p>
+                </div>
+                {% if object.website %}
+                <p><a class="text-blue-600 underline" target="_blank" href={{object.website}} alt="dev website">Website</a></p>
+                {% endif %}
+                {% if object.github %}
+                    <p><a class="text-blue-600 underline" target="_blank" href={{object.github}} alt="dev website">Github</a></p>
+                {% endif %}
+                {% if object.linkedin %}
+                    <p><a class="text-blue-600 underline" target="_blank" href={{object.linkedin}} alt="dev website">Linkedin</a></p>
+                {% endif %}
+                {% if object.twitter %}
+                <p><a class="text-blue-600 underline" target="_blank" href={{object.twitter}} alt="dev website">Twitter</a></p>
+                {% endif %}
+                {% if object.stackoverflow %}
+                <p><a class="text-blue-600 underline" target="_blank" href={{object.stackoverflow}} alt="dev website">Stackoverflow</a></p>
+                {% endif %}
+            </div>
+            <hr class="my-4" />
+            <div class="flex items-center mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-semibold text-gray-500">Location</p>
+            </div>
+            {% if object.city %}
+                {{object.city}}
+                {% endif %}
+            {% if object.state %}
+                {{object.state}}
+            {% endif %}
+            {% if object.country %}
+            <p>
+                {{object.country}} 
+            </p>
+            {% endif %}
+        </div>
     </div>
 </div>
-    <hr class="my-4">
-    {{object.bio}}
-
 {% endblock content %}

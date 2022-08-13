@@ -1,0 +1,11 @@
+{% extends 'jobs/_base.html' %}
+
+{% block content %}
+<h1>Profile</h1>
+{% if user.get_freelancer %}Freelancer Profile{% endif %}
+{% if user.get_business %}Business Profile{% endif %}
+<p>{{user.freelancer.name}}</p>
+<p>{{user.freelancer.tagline}}</p>
+<p>{{user.freelancer.bio}}</p>
+<p>{{user.freelancer.website}}</p>
+{% endblock %}

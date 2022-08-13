@@ -9,6 +9,14 @@ from .models import Freelancer, Business
 def index(request):
     return render(request, 'jobs/index.html')
 
+def profile(request):
+    print(dir(request.user))
+    # if the user has a freelance/biz acct -> take them to their profile
+    if request.user.get_freelancer() or request.user.get_business():
+        return render(request, 'jobs/profile.html')
+
+    return render(request, 'jobs/choose_account.html', {})
+
 def about(request):
     return render(request, 'jobs/about.html')
 

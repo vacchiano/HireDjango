@@ -9,41 +9,44 @@
 </head>
 <body>
     <div class="w-full min-h-screen bg-gray-50">
-        <div class="text-zinc-300 bg-zinc-800 flex flex-col p-2 w-full md:items-start md:justify-between md:flex-row md:px-10 md:py-3 lg:px-10 border-b">
-            <div class="flex flex-row items-center justify-between lg:justify-start">
-                <a href="{% url 'home' %}" class="text-3xl font-bold tracking-tighter text-gray-200 hover:text-white lg:pr-2">HireDjango</a>
+        <div class="text-zinc-300 bg-zinc-800 ">
+            <div class="container py-4 px-5 mx-auto flex flex-col w-full md:items-center md:justify-between md:flex-row">
+                <a href="{% url 'home' %}" class="h-full text-3xl font-bold tracking-tighter text-gray-50 hover:text-white lg:pr-2">HireDjango</a>
+        
+                <nav class="hidden flex-col items-center flex-grow pb-4 md:pb-0 md:flex md:justify-start md:flex-row md:pl-8">
+                    <div class="">
+                        <a class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">Pricing</a>
+                        <a href="{% url 'about' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">About</a>
+                        <a href="{% url 'freelancer-list' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">Developers</a>
+                    </div>
+                    
+                    <div class="inline-flex items-center gap-2 list-none md:ml-auto">
+                        {% if user.is_authenticated %}
+                            <p class="underline hover:text-white"><a href="{% url 'profile' %}">{{user.email}}</a></p>
+                        {% if user.freelancer.profile_pic %}
+                            <img class="w-12 h-12 border-2 rounded-full mx-4" src="{{ user.freelancer.profile_pic.url }}" alt="Profile pic">
+                        {% elif user.business.profile_pic %}
+                            <img class="w-10 border rounded-full mx-4" src="{{ user.business.profile_pic.url }}" alt="Profile pic">
+                        {% else %}
+                            <img class="w-12 h-12 border-2 rounded-full mx-4" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
+                        {% endif %}
+                        <form action="{% url 'account_logout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="hover:text-white">Logout</button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'account_login' %}">
+                            <button class="font-semibold px-6 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Sign in</button>
+                        </a>
+                        <a href="{% url 'account_signup' %}">
+                            <button class="leading-relaxed block px-10 py-2 text-base font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Sign up</button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </nav>
             </div>
-    
-            <nav class="flex-col items-center flex-grow hidden pb-4 md:pb-0 md:flex md:justify-start md:flex-row md:pl-2">
-                <a href="{% url 'freelancer-list' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Developers</a>
-                <a class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Pricing</a>
-                <a href="{% url 'about' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">About</a>
-                
-                <div class="inline-flex items-center gap-2 list-none md:ml-auto">
-                    {% if user.is_authenticated %}
-                    <p>{{user.email}}</p>
-                    {% if user.freelancer.profile_pic %}
-                    <img class="w-12 h-12 border-2 rounded-full mr-4" src="{{ user.freelancer.profile_pic.url }}"" alt="Profile pic">
-                    {% endif %}
-                    {% if user.business.profile_pic %}
-                    <img class="w-10 border rounded-full mr-4" src="{{ user.business.profile_pic.url }}" alt="Profile pic">
-                    {% endif %}
-                    <form action="{% url 'account_logout' %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="hover:text-white">Logout</button>
-                    </form>
-                    {% else %}
-                    <a href="{% url 'account_login' %}">
-                        <button class="font-semibold px-6 py-2 rounded hover:text-white hover:cursor-pointer mr-1">Sign in</button>
-                    </a>
-                    <a href="{% url 'account_signup' %}">
-                        <button class="leading-relaxed block px-10 py-2 text-base font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Sign up</button>
-                    </a>
-                    {% endif %}
-                </div>
-            </nav>
         </div>
-        <div class="container mx-auto py-10">
+        <div class="container mx-auto py-20">
             {% block content %}
             {% endblock content %}
         </div>
