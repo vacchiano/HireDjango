@@ -59,7 +59,7 @@
                     <p class="text-sm font-semibold text-gray-500">Roles</p>
                 </div>
                 {% for role in object.role_type.all %}
-                <p>{{role.name}}</p>
+                <p class="text-sm font-semibold text-gray-900 py-0.5">{{role.name}}</p>
                 {% endfor %}
             <hr class="my-4" />
             <div class="mb-2 flex items-center">
@@ -69,7 +69,7 @@
                 <p class="text-sm font-semibold text-gray-500">Experience</p>
             </div>
                 {% for level in object.role_level.all %}
-                <p>{{level}}</p>
+                <p class="text-sm font-semibold text-gray-900 py-0.5">{{level}}</p>
                 {% endfor %}
             </div>
             <hr class="my-4" />
@@ -82,19 +82,19 @@
                     <p class="text-sm font-semibold text-gray-500">Contact</p>
                 </div>
                 {% if object.website %}
-                <p><a class="text-blue-600 underline" target="_blank" href={{object.website}} alt="dev website">Website</a></p>
+                    <p class="text-sm font-medium py-0.5" ><a class="text-blue-600 underline" target="_blank" href={{object.website}} alt="dev website">Website</a></p>
                 {% endif %}
                 {% if object.github %}
-                    <p><a class="text-blue-600 underline" target="_blank" href={{object.github}} alt="dev website">Github</a></p>
+                    <p class="text-sm font-medium py-0.5"><a class="text-blue-600 underline" target="_blank" href={{object.github}} alt="dev website">Github</a></p>
                 {% endif %}
                 {% if object.linkedin %}
-                    <p><a class="text-blue-600 underline" target="_blank" href={{object.linkedin}} alt="dev website">Linkedin</a></p>
+                    <p class="text-sm font-medium py-0.5"><a class="text-blue-600 underline" target="_blank" href={{object.linkedin}} alt="dev website">Linkedin</a></p>
                 {% endif %}
                 {% if object.twitter %}
-                <p><a class="text-blue-600 underline" target="_blank" href={{object.twitter}} alt="dev website">Twitter</a></p>
+                    <p class="text-sm font-medium py-0.5"><a class="text-blue-600 underline" target="_blank" href={{object.twitter}} alt="dev website">Twitter</a></p>
                 {% endif %}
                 {% if object.stackoverflow %}
-                <p><a class="text-blue-600 underline" target="_blank" href={{object.stackoverflow}} alt="dev website">Stackoverflow</a></p>
+                    <p class="text-sm font-medium py-0.5"><a class="text-blue-600 underline" target="_blank" href={{object.stackoverflow}} alt="dev website">Stackoverflow</a></p>
                 {% endif %}
             </div>
             <hr class="my-4" />
@@ -105,13 +105,15 @@
                 <p class="text-sm font-semibold text-gray-500">Location</p>
             </div>
             {% if object.city %}
+            <p class="text-sm font-semibold text-gray-900 py-0.5">
                 {{object.city}}
                 {% endif %}
-            {% if object.state %}
+                {% if object.state %}
                 {{object.state}}
+            </p>
             {% endif %}
             {% if object.country %}
-            <p>
+            <p class="text-sm font-medium text-gray-900 py-0.5">
                 {{object.country}} 
             </p>
             {% endif %}
