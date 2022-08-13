@@ -9,11 +9,16 @@ from .models import Freelancer, Business
 def index(request):
     return render(request, 'jobs/index.html')
 
+@login_required
 def profile(request):
-    print(dir(request.user))
+    # print(dir(request.user))
     # if the user has a freelance/biz acct -> take them to their profile
     if request.user.get_freelancer() or request.user.get_business():
-        return render(request, 'jobs/profile.html')
+        freelancer = Freelancer.objects.get(owner=request.user)
+        context = {
+            'object': freelancer
+        }
+        return render(request, 'jobs/profile.html', context)
 
     return render(request, 'jobs/choose_account.html', {})
 
@@ -55,8 +60,8 @@ class BusinessCreateView(LoginRequiredMixin, CreateView):
 @login_required
 def handle_login(request):
     # if the user has a freelance/biz acct -> take them to home
-    print(request.user)
-    print(request.user.get_freelancer())
+    # print(request.user)
+    # print(request.user.get_freelancer())
     if request.user.get_freelancer() or request.user.get_business():
         return redirect(reverse_lazy('freelancer-list'))
 

@@ -2,22 +2,23 @@
 {% load static %}
 
 {% block content %}
-<div class="shadow bg-white rounded-md p-12 max-w-6xl mx-auto">
+<div class="shadow bg-white rounded-md p-4 sm:p-12 max-w-6xl mx-auto">
     <section class="text-gray-600 body-font">
-        <div class="container px-5 mx-auto flex flex-col">
+        <div class="container mx-auto flex flex-col">
           <div class="lg:w-4/6 mx-auto">
             <div class="flex flex-col sm:flex-row my-10">
-              <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">
+              <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8 flex flex-col items-center">
                 <img class="w-32 h-auto rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400 outline outline-gray-200" src="{% static 'img/me.jpg' %}" alt="Dom Vacchiano Photo">
                 <div class="flex flex-col items-center text-center justify-center">
                   <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">Dom Vacchiano</h2>
-                  <div class="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
+                  <div class="w-12 h-1 bg-indigo-500 rounded my-2"></div>
                   <p class="text-base">Founder of HireDjango</p>
                 </div>
+                <p class="hidden sm:block mt-auto text-gray-500">This project is heavily inspired by <a class="underline text-blue-500" href="https://railsdevs.com/about" target="_blank">RailsDevs</a></p>
               </div>
-              <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                <p class="-mt-8 mb-8 text-4xl font-semibold text-gray-900">About</p>
-                <p class="leading-relaxed text-lg mb-4">I built HireDjango to try and fix the issues job seekers and hiring managers face throughout the process. 
+              <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-left">
+                <p class="sm:-mt-8 mb-4 sm:mb-8 text-4xl font-extrabold text-gray-900 text-center sm:text-left">About</p>
+                <p class="leading-relaxed text-lg mb-4 text-gray-600">I built HireDjango to try and fix the issues job seekers and hiring managers face throughout the process. 
                   I've been on both sides of the spectrum and neither is too enjoyable. Developers fire off endless proposals or applications and many times never receive a reply. 
                   Business' are flooded with applicants, many of whom send over a very generic resume or proposal. Both sides waste unnecessary time early on for projects or jobs that aren't a good fit. 
                   HireDjango aims to fix that. Developers make a free profile and add preferences and experiences. Companies can browse these devs and reach out to those that fit their criteria. 
@@ -35,6 +36,8 @@
                       </svg>
                     </a>
                 {% endif %}
+                <hr class="sm:hidden my-8" />
+                <p class="sm:hidden text-center text-gray-500">This project is heavily inspired by <a class="underline text-blue-500" href="https://railsdevs.com/about" target="_blank">RailsDevs</a></p>
               </div>
             </div>
           </div>

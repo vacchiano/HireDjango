@@ -1,24 +1,22 @@
 {% extends 'jobs/_base.html' %}
 
 {% block content %}
-    <div class="md:mx-10">
+    <div class="mx-auto max-w-5xl">
         <h1 class="text-4xl font-bold mb-8">All Django Developers</h1>
         <div class="shadow bg-white divide-y divide-gray-200 rounded-md py-2">
             {% for freelancer in object_list %}
             <div>
                 <a href="{% url 'freelancer-detail' freelancer.pk %}">
                     <div class="p-6 flex items-center">
+                        {% if freelancer.profile_pic %}
+                        <img class="w-24 h-24 sm:w-32 sm:h-32 border rounded-full mr-4 flex-0" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
+                        {% endif %}
                         <div>
-                            {% if freelancer.profile_pic %}
-                            <img class="w-20 border rounded-full mr-4" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
-                            {% endif %}
-                        </div>
-                        <div>
-                            <p class="text-lg font-semibold">
-                                {{freelancer.name}}
+                            <p class="text-lg md:text-2xl font-semibold break-words">
+                                {{freelancer.tagline|truncatewords:15}}
                             </p>
-                            <p class="text-gray-700 pt-4">
-                                {{freelancer.tagline}}
+                            <p class="text-gray-700 text-sm sm:text-lg pt-2 break-words">
+                                {{freelancer.bio|truncatewords:20}}
                             </p>
                         </div>
                     </div>
