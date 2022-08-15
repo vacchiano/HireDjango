@@ -1,0 +1,64 @@
+{% extends 'jobs/_base.html' %}
+
+{% block content %}
+<div class="shadow bg-white rounded-md p-8 md:p-16 max-w-6xl mx-auto flex flex-col md:flex-row md:divide-x md:divide-x-gray-100">
+    <div class="flex flex-col items-start md:px-12 w-full md:w-4/5">
+        <div class="flex flex-col items-start w-full">
+            <div class="flex flex-col md:flex-row w-full md:items-center">
+                <div>
+                    {% if object.profile_pic %}
+                    <img class="w-32 outline outline-gray-200 rounded-full mr-4" src="{{ object.profile_pic.url }}" alt="Profile pic">
+                    {% else %}
+                    <img class="w-32 outline outline-gray-200 rounded-full mr-4" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="mt-4 w-full">
+                <h1 class="text-2xl font-bold text-gray-900">{{object.name}}</h1>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end">
+                    <div>
+                        <h3 class="text-xl text-gray-700 my-2">{{object.job_title}}</h3>
+                    </div>
+                    {% if object.owner == request.user %}
+                    <a class="mt-4 md:mt-0" href="#">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <!-- Heroicon name: solid/mail -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                            Billing settings
+                        </button>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="w-full">
+            <hr class="my-6">
+            <div class="mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-semibold text-gray-500">About</p>
+            </div>
+            <p class="text-lg">{{object.bio|linebreaksbr}}</p>
+        </div>
+    </div>
+    <div class="flex items-center justify-start w-full mt-8 md:mt-0 md:w-1/5">
+        <div class="md:px-12">
+            <div>
+                <div class="mb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                    <p class="text-sm font-semibold text-gray-500">Contact</p>
+                </div>
+                {% if object.website %}
+                    <p class="text-sm font-medium py-0.5" ><a class="text-blue-600 underline" target="_blank" href={{object.website}} alt="dev website">Website</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

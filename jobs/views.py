@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
@@ -13,22 +13,35 @@ def index(request):
 def profile(request):
     # print(dir(request.user))
     # if the user has a freelance/biz acct -> take them to their profile
-    if request.user.get_freelancer() or request.user.get_business():
+    if request.user.get_freelancer():
         freelancer = Freelancer.objects.get(owner=request.user)
         context = {
             'object': freelancer
         }
-        return render(request, 'jobs/profile.html', context)
+        return render(request, 'jobs/freelancer_detail.html', context)
+
+    if request.user.get_business():
+        business = Business.objects.get(owner=request.user)
+        context = {
+            'object': business
+        }
+        return render(request, 'jobs/business_profile.html', context)
 
     return render(request, 'jobs/choose_account.html', {})
 
 def about(request):
     return render(request, 'jobs/about.html')
 
-class FreelancerListView(ListView):
-    model = Freelancer
+def pricing(request):
+    return render(request, 'jobs/pricing.html')
 
-class FreelancerDetailView(LoginRequiredMixin, DetailView):
+class FreelancerListView(ListView):
+
+    def get_queryset(self):
+        queryset = Freelancer.objects.exclude(search_status="invisible")
+        return queryset
+
+class FreelancerDetailView(DetailView):
     model = Freelancer
     # template 'freelancer_detail.html'
 
@@ -41,7 +54,7 @@ class FreelancerDetailView(LoginRequiredMixin, DetailView):
 
 class FreelancerCreateView(LoginRequiredMixin, CreateView):
     model = Freelancer
-    fields = ['name', 'profile_pic', 'tagline', 'bio', 'website']
+    fields = ['name', 'tagline', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
     success_url = reverse_lazy('freelancer-list')
 
     def form_valid(self, form):
@@ -50,12 +63,24 @@ class FreelancerCreateView(LoginRequiredMixin, CreateView):
 
 class BusinessCreateView(LoginRequiredMixin, CreateView):
     model = Business
-    fields = ['name', 'profile_pic', 'bio']
+    fields = '__all__'
     success_url = reverse_lazy('freelancer-list')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super(BusinessCreateView, self).form_valid(form)
+
+class FreelancerUpdateView(LoginRequiredMixin, UpdateView):
+    model = Freelancer
+    fields = ['name', 'tagline', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
+    success_url = reverse_lazy('freelancer-list')
+
+    def get_object(self, queryset=None):
+        return Freelancer.objects.get(owner=self.request.user)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super(FreelancerUpdateView, self).form_valid(form)
 
 @login_required
 def handle_login(request):

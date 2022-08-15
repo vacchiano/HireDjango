@@ -6,17 +6,17 @@
         <div class="flex flex-col items-start w-full">
             <div class="flex flex-col md:flex-row w-full md:items-center">
                 <div>
-                    {% if freelancer.profile_pic %}
+                    {% if object.profile_pic %}
                     <img class="w-32 outline outline-gray-200 rounded-full mr-4" src="{{ object.profile_pic.url }}" alt="Profile pic">
                     {% else %}
                     <img class="w-32 outline outline-gray-200 rounded-full mr-4" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
                     {% endif %}
                 </div>
                 <div class="mt-4 md:mt-0 md:ml-auto">
-                    {% if freelancer.search_status == "active" %}
+                    {% if object.search_status == "active" %}
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-md font-medium bg-green-100 text-green-800">
                             <svg class="-ml-0.5 mr-1 h-4 w-4 text-green-400" fill="currentColor" viewBox="0 0 8 8">
-                    {% elif freelancer.search_status == "invisible" %}
+                    {% elif object.search_status == "invisible" %}
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-md font-medium bg-gray-100 text-gray-800">
                             <svg class="-ml-0.5 mr-1 h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 8 8">
                     {% else %}
@@ -25,18 +25,19 @@
                     {% endif %}
                           <circle cx="4" cy="4" r="3" />
                         </svg>
-                        {{freelancer.search_status|title}}
+                        {{object.search_status|title}}
                     </span>
                 </div>
             </div>
             <div class="mt-4 w-full">
                 <h1 class="text-2xl font-bold text-gray-900">{{object.tagline}}</h1>
-                <div class="flex justify-between items-center">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end">
                     <div>
                         <h3 class="text-xl text-gray-700 my-2">{{object.name}}</h3>
                         <p class="text-sm font-semibold text-gray-700">Available: {{object.available_date}}</p>
                     </div>
-                    <a href="">
+                    {% if object.owner == request.user %}
+                    <a class="mt-4 md:mt-0" href="{% url 'freelancer-update' %}">
                         <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             <!-- Heroicon name: solid/mail -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -45,23 +46,22 @@
                             Update Profile
                         </button>
                     </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div>
+        <div class="w-full">
             <hr class="my-6">
-            <div class="">
-                <div class="mb-2 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
-                    </svg>
-                    <p class="text-sm font-semibold text-gray-500">About</p>
-                </div>
-                <p class="text-lg">{{object.bio}}</p>
+            <div class="mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-semibold text-gray-500">About</p>
             </div>
+            <p class="text-lg">{{object.bio|linebreaksbr}}</p>
         </div>
     </div>
-    <div class="flex items-start justify-start w-full mt-8 md:mt-0 md:w-1/5">
+    <div class="flex items-center justify-start w-full mt-8 md:mt-0 md:w-1/5">
         <div class="md:px-12">
             <div>
                 <div class="mb-2 flex items-center">
@@ -108,6 +108,9 @@
                 {% endif %}
                 {% if object.stackoverflow %}
                     <p class="text-sm font-medium py-0.5"><a class="text-blue-600 underline" target="_blank" href={{object.stackoverflow}} alt="dev website">Stackoverflow</a></p>
+                {% endif %}
+                {% if object.contact_email %}
+                    <p class="text-sm font-medium py-0.5"><a class="text-blue-600 underline" target="_blank" href={{"mailto:"|add:object.contact_email}} alt="dev email">Email</a></p>
                 {% endif %}
             </div>
             <hr class="my-4" />

@@ -54,6 +54,7 @@ class Freelancer(models.Model):
     city = models.CharField(max_length=50, blank=True)
     state = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50, blank=True)
+    contact_email = models.EmailField(max_length=254, blank=True)
 
 
     def __str__(self):
