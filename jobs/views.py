@@ -63,7 +63,7 @@ class FreelancerCreateView(LoginRequiredMixin, CreateView):
 
 class BusinessCreateView(LoginRequiredMixin, CreateView):
     model = Business
-    fields = '__all__'
+    fields = ['name', 'profile_pic', 'bio', 'website', 'job_title']
     success_url = reverse_lazy('freelancer-list')
 
     def form_valid(self, form):
