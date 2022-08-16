@@ -19,9 +19,9 @@
                 <a href="{% url 'freelancer-detail' freelancer.pk %}">
                     <div class="p-6 flex flex-col sm:flex-row items-center">
                         {% if freelancer.profile_pic %}
-                            <img class="w-24 h-24 sm:w-32 sm:h-32 outline outline-gray-200 rounded-full mr-4 flex-0" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
+                            <img class="w-24 h-24 sm:w-32 sm:h-32 outline outline-gray-200 rounded-full mr-4 shrink-0 object-cover" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
                         {% else %}
-                            <img class="w-24 h-24 sm:w-32 sm:h-32 outline outline-gray-200 rounded-full mr-4 flex-0" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
+                            <img class="w-24 h-24 sm:w-32 sm:h-32 outline outline-gray-200 rounded-full mr-4 shrink-0 object-cover" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
                         {% endif %}
                         <div>
                             <p class="text-lg md:text-2xl font-semibold break-words">

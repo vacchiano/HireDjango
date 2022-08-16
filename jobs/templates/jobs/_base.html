@@ -29,15 +29,15 @@
                                 <p class="underline hover:text-white"><a href="{% url 'profile' %}">{{user.email}}</a></p>
                             {% if user.freelancer.profile_pic %}
                                 <a href="{% url 'profile' %}">
-                                    <img class="hidden md:block w-12 h-12 border-2 rounded-full" src="{{ user.freelancer.profile_pic.url }}" alt="Profile pic">
+                                    <img class="hidden md:block w-12 h-12 border-2 rounded-full shrink-0 object-cover" src="{{ user.freelancer.profile_pic.url }}" alt="Profile pic">
                                 </a>
                             {% elif user.business.profile_pic %}
                                 <a href="{% url 'profile' %}">
-                                    <img class="w-10 border rounded-full" src="{{ user.business.profile_pic.url }}" alt="Profile pic">
+                                    <img class="w-10 border rounded-full shrink-0 object-cover" src="{{ user.business.profile_pic.url }}" alt="Profile pic">
                                 </a>
                             {% else %}
                                 <a href="{% url 'profile' %}">
-                                    <img class="w-12 h-12 border-2 rounded-full" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
+                                    <img class="w-12 h-12 border-2 rounded-full shrink-0 object-cover" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
                                 </a>
                             {% endif %}
                                 <form action="{% url 'account_logout' %}" method="POST">

@@ -7,9 +7,9 @@
             <div class="flex flex-col md:flex-row w-full md:items-center">
                 <div>
                     {% if object.profile_pic %}
-                        <img class="w-32 h-32 outline outline-gray-200 rounded-full mr-4" src="{{ object.profile_pic.url }}" alt="Profile pic">
+                        <img class="w-32 h-32 outline outline-gray-200 rounded-full mr-4 shrink-0 object-cover" src="{{ object.profile_pic.url }}" alt="Profile pic">
                     {% else %}
-                        <img class="w-32 h-32 outline outline-gray-200 rounded-full mr-4" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
+                        <img class="w-32 h-32 outline outline-gray-200 rounded-full mr-4 shrink-0 object-cover" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
                     {% endif %}
                 </div>
             </div>
