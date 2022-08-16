@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'crispy_tailwind',
+    'storages',
 
     # local apps
     'jobs',
