@@ -5,9 +5,9 @@ class CustomUser(AbstractUser):
     pass
 
     def get_freelancer(self):
-        print('checking freelancer')
+        # print('checking freelancer')
         if(hasattr(self, 'freelancer')):
-            print(self.freelancer)
+            # print(self.freelancer)
             return self.freelancer
         return None
 

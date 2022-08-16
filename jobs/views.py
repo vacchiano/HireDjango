@@ -54,7 +54,7 @@ class FreelancerDetailView(DetailView):
 
 class FreelancerCreateView(LoginRequiredMixin, CreateView):
     model = Freelancer
-    fields = ['name', 'tagline', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
+    fields = ['name', 'tagline', 'profile_pic', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
     success_url = reverse_lazy('freelancer-list')
 
     def form_valid(self, form):
@@ -72,7 +72,7 @@ class BusinessCreateView(LoginRequiredMixin, CreateView):
 
 class FreelancerUpdateView(LoginRequiredMixin, UpdateView):
     model = Freelancer
-    fields = ['name', 'tagline', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
+    fields = ['name', 'tagline', 'profile_pic', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
     success_url = reverse_lazy('freelancer-list')
 
     def get_object(self, queryset=None):
