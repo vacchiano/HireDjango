@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -56,9 +57,14 @@ class Freelancer(models.Model):
     country = models.CharField(max_length=50, blank=True)
     contact_email = models.EmailField(max_length=254, blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return f"{self.id} | {self.name}"
+
+    class Meta:
+        ordering = ['-id']
 
 class Business(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -67,6 +73,9 @@ class Business(models.Model):
     bio = models.TextField(blank=True)
     website = models.URLField(max_length=200, blank=True)
     job_title = models.CharField(max_length=100, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
         return f"{self.id} | {self.name}"

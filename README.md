@@ -3,7 +3,7 @@ A reverse job board for Django developers.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites & Installing
 
@@ -16,21 +16,40 @@ python manage.py migrate
 
 Currently the local env uses sqlite db and the production app uses PostreSQL.
 
+Email verification for new users is done locally within the terminal.
+
+Static files are served in prod by Digital Ocean static sites
+
+Media (user uploaded) files are served in prod by Digial Ocean Spaces (S3)
+
+User auth is handled by the django-allauth package (email signup - new users req to verify email)
+
+### Project & Apps
+
+Config is the main project folder
+
+Accounts handles the custom user model
+
+Jobs handles the freelancer/business functionality
+
+
 ### Seeding data
 
 When first starting you will want to create a superuser. and also some fake accounts for developers and businesses.
+
+A custom user model is used. Each Freelancer or Business is tied to a user via a OneToOne relationship.
 
 ## Running the tests
 
 Right now tests still need to be implemented..
 
-## Deployment
+## Production
 
 The live site is deployed to Digital Ocean. Once a commit is made to Master it is auto deployed.
 
 ## Built With
 
-* [Django](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Django](https://docs.djangoproject.com/) - The web framework used
 
 ## Contributing
 
@@ -38,7 +57,7 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/vacchiano/HireDjango/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 
