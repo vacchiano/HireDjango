@@ -1,9 +1,13 @@
 # HireDjango
 A reverse job board for Django developers.
 
-## Getting Started
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
+
+## Want To Contribute? => Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://kcd.im/pull-request)
 
 ### Prerequisites & Installing
 
