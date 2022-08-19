@@ -24,7 +24,7 @@ Also [this guide](https://mattstauffer.com/blog/how-to-contribute-to-an-open-sou
 4. *Work on changes in code*
 5. git add, commit + git push origin -u 'your_branch_name'
 6. From Github create pull request from forked repo to this project
-7. Comment on the issue to notify me and I will review + respond when I get a chance
+7. Comment on the issue to notify me and I will review + respond when I get a chance.
 8. [Synce your local fork with the main project](https://www.geeksforgeeks.org/sync-your-fork-with-master-in-github/)
 
 Feel free to comment on the issue/PR or [send me an email](mailto:djvacchiano@gmail.com).
