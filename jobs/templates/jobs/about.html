@@ -18,10 +18,10 @@
               </div>
               <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-left">
                 <p class="sm:-mt-8 mb-4 sm:mb-8 text-4xl font-extrabold text-gray-900 text-center sm:text-left">About</p>
-                <p class="leading-relaxed text-lg mb-4 text-gray-600">I built HireDjango to try and fix the issues job seekers and hiring managers face throughout the process. 
-                  I've been on both sides of the spectrum and neither is too enjoyable. Developers fire off endless proposals or applications and many times never receive a reply. 
-                  Business' are flooded with applicants, many of whom send over a very generic resume or proposal. Both sides waste unnecessary time early on for projects or jobs that aren't a good fit. 
-                  HireDjango aims to fix that. Developers make a free profile and add preferences and experiences. Companies can browse these devs and reach out to those that fit their criteria. 
+                <p class="leading-relaxed text-lg mb-4 text-gray-600">I built HireDjango to try and fix the issues job seekers and hiring managers face throughout the process.
+                  I've been on both sides of the spectrum and neither is too enjoyable. Developers fire off endless proposals or applications and many times never receive a reply.
+                  Business' are flooded with applicants, many of whom send over a very generic resume or proposal. Both sides waste unnecessary time early on for projects or jobs that aren't a good fit.
+                  HireDjango aims to fix that. Developers make a free profile and add preferences and experiences. Companies can browse these devs and reach out to those that fit their criteria.
                   The convo starts a step ahead of generic job listings or blanket proposals.</p>
                 {% if not user.is_authenticated %}
                     <a href="{% url 'account_signup' %}" class="text-indigo-500 hover:text-indigo-800 inline-flex items-center">Sign up now
@@ -30,7 +30,7 @@
                       </svg>
                     </a>
                   {% else %}
-                    <a href="{% url 'freelancer-list' %}" class="text-indigo-500 hover:text-indigo-800 inline-flex items-center">View developers
+                    <a href="{% url 'list_developers' %}" class="text-indigo-500 hover:text-indigo-800 inline-flex items-center">View developers
                       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                       </svg>

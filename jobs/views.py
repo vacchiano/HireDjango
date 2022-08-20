@@ -3,7 +3,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from jobs.forms import DeverloperSearchForm
+from django.db.models import Q
 from .models import Freelancer, Business
 
 def index(request):
@@ -35,11 +36,27 @@ def about(request):
 def pricing(request):
     return render(request, 'jobs/pricing.html')
 
-class FreelancerListView(ListView):
+# class FreelancerListView(ListView):
+#
+#     def get_queryset(self):
+#         queryset = Freelancer.objects.exclude(search_status="invisible")
+#         return queryset
 
-    def get_queryset(self):
-        queryset = Freelancer.objects.exclude(search_status="invisible")
-        return queryset
+def list_developers(request):
+    form = DeverloperSearchForm
+    developers = Freelancer.objects.exclude(search_status="invisible")
+    query = request.GET.get("search_profile")
+    if query:
+        developers = Freelancer.objects.exclude(search_status="invisible").filter(
+        Q(city__icontains=query)|
+        Q(state__icontains=query) |
+        Q(country__icontains=query) |
+        Q(role_type__name__icontains=query)|
+        Q(role_level__name__icontains=query)
+        )
+    context = {'developers':developers,'form':form,}
+
+    return render(request, 'jobs/freelancer_list.html',context)
 
 class FreelancerDetailView(DetailView):
     model = Freelancer
@@ -91,5 +108,3 @@ def handle_login(request):
         return redirect(reverse_lazy('freelancer-list'))
 
     return render(request, 'jobs/choose_account.html', {})
-
-    
