@@ -15,5 +15,5 @@ urlpatterns = [
     path('developer/create/', FreelancerCreateView.as_view(), name="freelancer-create"),
     path('developer/update/', FreelancerUpdateView.as_view(), name="freelancer-update"),
     path('business/create/', BusinessCreateView.as_view(), name="business-create"),
-    path('list-developers/',list_developers,name="list_developers"),
+    path('developers/',list_developers,name="list-developers"),
 ]
