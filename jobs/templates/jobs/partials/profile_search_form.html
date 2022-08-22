@@ -1,5 +1,6 @@
 {% load tailwind_filters %}
-<form class="" action="#" method="GET">
-  {{form | crispy}}
-  <input class="px-10 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 hover:cursor-pointer" type="submit" value="Search">
+<form class="flex w-3/4 sm:w-fit flex-col sm:flex-row mt-3" action="{% url 'list-developers' %}" method="GET">
+  {{form|crispy}}
+  <input class="sm:ml-2 mb-3 block w-full sm:w-fit px-8 py-2 h-fit text-white bg-blue-600 rounded-lg hover:bg-blue-700 hover:cursor-pointer" type="submit" value="Search">
+  
 </form>

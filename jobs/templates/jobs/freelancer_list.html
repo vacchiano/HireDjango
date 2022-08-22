@@ -2,9 +2,9 @@
 {% load tailwind_filters %}
 {% block content %}
     <div class="mx-auto max-w-5xl">
-        <div class="flex flex-col sm:flex-row items-center justify-between mb-8">
-             {%  include 'jobs/partials/profile_search_form.html' %}
-            <h1 class="text-4xl text-center sm:text-left text-gray-800 font-bold">Hire Django Developers</h1>
+        <h1 class="text-4xl text-center sm:text-left text-gray-800 font-bold">Hire Django Developers</h1>
+        <div class="flex flex-col sm:flex-row items-center justify-between my-8">
+            {%  include 'jobs/partials/profile_search_form.html' %}
             {% if not user.is_authenticated %}
             <a class="flex items-center w-3/4 sm:w-fit mt-4 sm:mt-0 px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md" href="{% url 'account_signup' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1.5 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -14,6 +14,17 @@
             </a>
             {% endif %}
         </div>
+        {% if query %}
+        <p class="text-gray-500 mb-2 flex">
+            Results for: <span class="text-gray-900">"{{ query }}</span>" |
+            <a href="{% url 'list-developers' %}" class="text-sm ml-1 text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-0.5 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Clear
+            </a>
+        </p>
+        {% endif %}
         <div class="shadow bg-white divide-y divide-gray-200 rounded-md py-2">
             {% for freelancer in developers %}
             <div>
