@@ -48,15 +48,17 @@ def list_developers(request):
     query = request.GET.get("search_profile")
     if query:
         developers = Freelancer.objects.exclude(search_status="invisible").filter(
+        Q(tagline__icontains=query)|
+        Q(bio__icontains=query)|
         Q(city__icontains=query)|
         Q(state__icontains=query) |
         Q(country__icontains=query) |
         Q(role_type__name__icontains=query)|
         Q(role_level__name__icontains=query)
         )
-    context = {'developers':developers,'form':form,}
+    context = {'developers':developers,'form':form,'query':query}
 
-    return render(request, 'jobs/freelancer_list.html',context)
+    return render(request, 'jobs/freelancer_list.html', context)
 
 class FreelancerDetailView(DetailView):
     model = Freelancer
