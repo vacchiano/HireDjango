@@ -7,6 +7,12 @@
     <title>HireDjango - Reverse job board for Django Developers</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style media="screen">
+    /* Todo this should be moved to a static folder in future */
+    .asteriskField {
+      display: none;
+    }
+    </style>
 </head>
 <body>
     <div class="w-full min-h-screen bg-gray-50">
@@ -21,7 +27,7 @@
                             <div class="hidden ml-10 space-x-8 lg:block">
                             <a href="{% url 'pricing' %}" class="text-base font-medium text-white hover:text-indigo-50"> Pricing </a>
                             <a href="{% url 'about' %}" class="text-base font-medium text-white hover:text-indigo-50"> About </a>
-                            <a href="{% url 'freelancer-list' %}" class="text-base font-medium text-white hover:text-indigo-50"> Developers </a>
+                            <a href="{% url 'list-developers' %}" class="text-base font-medium text-white hover:text-indigo-50"> Developers </a>
                             </div>
                         </div>
                         <div class="sm:ml-10 mt-4 sm:mt-0 space-x-4 flex items-center">
@@ -45,7 +51,7 @@
                                     <button type="submit" class="hover:text-white">Logout</button>
                                 </form>
                             {% else %}
-                            
+
                                 <a href="{% url 'account_login' %}" class="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75">Sign in</a>
                                 <a href="{% url 'account_signup' %}" class="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50">Sign up</a>
                             {% endif %}
@@ -54,7 +60,7 @@
                     <div class="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
                       <a href="#" class="text-base font-medium text-white hover:text-indigo-50"> Pricing </a>
                       <a href="{% url 'about' %}" class="text-base font-medium text-white hover:text-indigo-50"> About </a>
-                      <a href="{% url 'freelancer-list' %}" class="text-base font-medium text-white hover:text-indigo-50"> Developers </a>
+                      <a href="{% url 'list-developers' %}" class="text-base font-medium text-white hover:text-indigo-50"> Developers </a>
                     </div>
                   </nav>
 
@@ -62,9 +68,9 @@
                     <div class="hidden ml-10 space-x-8 lg:block">
                         <a class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">Pricing</a>
                         <a  class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">About</a>
-                        <a href="{% url 'freelancer-list' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">Developers</a>
+                        <a href="{% url 'list-developers' %}" class="font-semibold px-3 py-2 rounded hover:text-white hover:cursor-pointer">Developers</a>
                     </div>
-                    
+
                     <div class="inline-flex items-center gap-2 list-none md:ml-auto">
                         {% if user.is_authenticated %}
                             <p class="underline hover:text-white"><a href="{% url 'profile' %}">{{user.email}}</a></p>
