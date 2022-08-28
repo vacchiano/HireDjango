@@ -74,7 +74,7 @@ class FreelancerDetailView(DetailView):
 class FreelancerCreateView(LoginRequiredMixin, CreateView):
     model = Freelancer
     fields = ['name', 'tagline', 'profile_pic', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
-    success_url = reverse_lazy('freelancer-list')
+    success_url = reverse_lazy('list-developers')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -83,7 +83,7 @@ class FreelancerCreateView(LoginRequiredMixin, CreateView):
 class BusinessCreateView(LoginRequiredMixin, CreateView):
     model = Business
     fields = ['name', 'profile_pic', 'bio', 'website', 'job_title']
-    success_url = reverse_lazy('freelancer-list')
+    success_url = reverse_lazy('list-developers')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -92,7 +92,7 @@ class BusinessCreateView(LoginRequiredMixin, CreateView):
 class FreelancerUpdateView(LoginRequiredMixin, UpdateView):
     model = Freelancer
     fields = ['name', 'tagline', 'profile_pic', 'bio', 'contact_email', 'website', 'github', 'linkedin', 'twitter', 'stackoverflow', 'search_status', 'role_type', 'role_level', 'available_date', 'city', 'state','country']
-    success_url = reverse_lazy('freelancer-list')
+    success_url = reverse_lazy('list-developers')
 
     def get_object(self, queryset=None):
         return Freelancer.objects.get(owner=self.request.user)
@@ -107,6 +107,6 @@ def handle_login(request):
     # print(request.user)
     # print(request.user.get_freelancer())
     if request.user.get_freelancer() or request.user.get_business():
-        return redirect(reverse_lazy('freelancer-list'))
+        return redirect(reverse_lazy('list-developers'))
 
     return render(request, 'jobs/choose_account.html', {})
