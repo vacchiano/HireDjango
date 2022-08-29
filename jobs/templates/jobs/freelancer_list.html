@@ -28,7 +28,7 @@
         <div class="shadow bg-white divide-y divide-gray-200 rounded-md py-2">
             {% for freelancer in developers %}
             <div>
-                <a href="{% url 'freelancer-detail' freelancer.pk %}">
+                <a href="{% url 'freelancer-detail' freelancer.owner.username %}">
                     <div class="p-6 flex flex-col sm:flex-row items-center">
                         {% if freelancer.profile_pic %}
                             <img class="w-24 h-24 sm:w-32 sm:h-32 ring ring-gray-200 rounded-full mr-4 shrink-0 object-cover" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">

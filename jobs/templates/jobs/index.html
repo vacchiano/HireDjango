@@ -38,7 +38,7 @@
         <h1 class="text-4xl font-bold mb-8">Django Developers</h1>
         <div class="shadow">
             {% for freelancer in object_list %}
-                <a href="{% url 'freelancer-detail' freelancer.pk %}">
+                <a href="{% url 'freelancer-detail' freelancer.owner.username %}">
                     <div class="p-6 border flex items-center">
                         <div>
                             {% if freelancer.profile_pic %}
