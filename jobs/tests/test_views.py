@@ -1,10 +1,8 @@
 from django.test import TestCase
-from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from jobs.models import Freelancer
-from jobs.views import profile
 
 
 User = get_user_model()
