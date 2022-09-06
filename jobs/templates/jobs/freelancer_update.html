@@ -1,0 +1,14 @@
+{% extends 'jobs/_base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="p-6 max-w-2xl mx-auto rounded shadow bg-white">
+    <h1 class="text-slate-800 text-4xl mb-4 font-semibold">Freelancer Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="px-10 py-2 text-white bg-indigo-700 rounded-lg hover:bg-blue-700 hover:cursor-pointer" type="submit" value="Save">
+    </form>
+</div>
+
+{% endblock content %}

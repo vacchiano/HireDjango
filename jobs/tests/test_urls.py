@@ -1,18 +1,8 @@
 from django.test import SimpleTestCase
-from django.urls import reverse, resolve
-
-from jobs.views import (
- index,
- profile,
- about,
- pricing,
- list_developers,
- FreelancerDetailView,
- FreelancerCreateView,
- BusinessCreateView,
- FreelancerUpdateView,
- handle_login
-)
+from django.urls import resolve, reverse
+from jobs.views import (BusinessCreateView, FreelancerCreateView,
+                        FreelancerDetailView, FreelancerUpdateView, about,
+                        handle_login, index, list_developers, pricing, profile)
 
 
 class TestJobsUrl(SimpleTestCase):
