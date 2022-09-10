@@ -1,6 +1,7 @@
-from django.test import TestCase
-from jobs.models import Role, Level, Freelancer, Business
 from django.contrib.auth import get_user_model
+from django.test import TestCase
+from jobs.models import Business, Freelancer, Level, Role
+
 User = get_user_model()
 
 
