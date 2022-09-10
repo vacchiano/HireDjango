@@ -62,6 +62,8 @@ def list_developers(request):
 
 class FreelancerDetailView(DetailView):
     model = Freelancer
+    slug_field = 'owner__username'
+    slug_url_kwarg = 'username'
     # template 'freelancer_detail.html'
 
 # def freelancer_detail(request, pk):
