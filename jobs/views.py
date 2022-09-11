@@ -48,18 +48,7 @@ def pricing(request):
 def list_developers(request):
     form = DeverloperSearchForm
     developers = Freelancer.objects.exclude(search_status="invisible")
-    query = request.GET.get("search_profile")
-    if query:
-        developers = Freelancer.objects.exclude(search_status="invisible").filter(
-        Q(tagline__icontains=query)|
-        Q(bio__icontains=query)|
-        Q(city__icontains=query)|
-        Q(state__icontains=query) |
-        Q(country__icontains=query) |
-        # Q(role_type__name__icontains=query)|
-        Q(role_level__name__icontains=query)
-        )
-    context = {'developers':developers,'form':form,'query':query}
+    context = {'developers':developers,'form':form,}
 
     return render(request, 'jobs/freelancer_list.html', context)
 
@@ -95,7 +84,7 @@ class BusinessCreateView(LoginRequiredMixin, CreateView):
         return super(BusinessCreateView, self).form_valid(form)
 
 class FreelancerUpdateView(LoginRequiredMixin, UpdateView):
-    
+
     template_name = 'jobs/freelancer_update.html'
     form_class = FreelancerForm
     success_url = reverse_lazy('list-developers')
@@ -116,3 +105,20 @@ def handle_login(request):
         return redirect(reverse_lazy('list-developers'))
 
     return render(request, 'jobs/choose_account.html', {})
+
+def search_developers(request):
+    form = DeverloperSearchForm
+    query = request.GET.get("search_profile")
+    if query:
+        developers = Freelancer.objects.exclude(search_status="invisible").filter(
+        Q(tagline__icontains=query)|
+        Q(bio__icontains=query)|
+        Q(city__icontains=query)|
+        Q(state__icontains=query) |
+        Q(country__icontains=query) |
+        # Q(role_type__name__icontains=query)|
+        Q(role_level__name__icontains=query)
+        )
+    context = {'form':form,'query':query,'developers':developers}
+
+    return render(request, 'jobs/search_developers.html', context)
