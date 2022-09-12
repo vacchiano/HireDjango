@@ -4,7 +4,11 @@
     <div class="mx-auto max-w-5xl">
         <h1 class="text-4xl text-center sm:text-left text-gray-800 font-bold">Hire Django Developers</h1>
         <div class="flex flex-col sm:flex-row items-center justify-between my-8">
-            {%  include 'jobs/partials/profile_search_form.html' %}
+
+            <form class="" action="" method="GET">
+              {{developers_filter.form|crispy}}
+              <input class="px-10 py-2 text-white bg-indigo-700 rounded-lg hover:bg-blue-700 hover:cursor-pointer" type="submit" value="Search">
+            </form>
             {% if not user.is_authenticated %}
             <a class="flex items-center w-3/4 sm:w-fit mt-4 sm:mt-0 px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md" href="{% url 'account_signup' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1.5 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

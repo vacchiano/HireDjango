@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_tailwind',
     'storages',
+    'django_filters',
 
     # local apps
     'jobs',

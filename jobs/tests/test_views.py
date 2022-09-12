@@ -25,13 +25,12 @@ class JobsViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestSearchDeveloperView(TestCase):
+class TestJodDeveloperList(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_search_developer_view(self):
-        url = reverse('search-developers')
-
+    def test_developer_list_url(self):
+        url = reverse('list-developers')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('jobs/search_developers.html')
+        self.assertTemplateUsed(response, 'jobs/freelancer_list.html')

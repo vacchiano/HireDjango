@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from jobs.filters import DevelopersFilter
 
 from jobs.forms import DeverloperSearchForm, FreelancerForm
 
@@ -46,9 +47,10 @@ def pricing(request):
 #         return queryset
 
 def list_developers(request):
-    form = DeverloperSearchForm
     developers = Freelancer.objects.exclude(search_status="invisible")
-    context = {'developers':developers,'form':form,}
+    developers_filter = DevelopersFilter(request.GET, queryset=developers)
+    developers = developers_filter.qs
+    context = {'developers':developers,'developers_filter':developers_filter}
 
     return render(request, 'jobs/freelancer_list.html', context)
 
@@ -105,21 +107,3 @@ def handle_login(request):
         return redirect(reverse_lazy('list-developers'))
 
     return render(request, 'jobs/choose_account.html', {})
-
-def search_developers(request):
-    form = DeverloperSearchForm
-    developers = None
-    query = request.GET.get("search_profile")
-    if query:
-        developers = Freelancer.objects.exclude(search_status="invisible").filter(
-        Q(tagline__icontains=query)|
-        Q(bio__icontains=query)|
-        Q(city__icontains=query)|
-        Q(state__icontains=query) |
-        Q(country__icontains=query) |
-        # Q(role_type__name__icontains=query)|
-        Q(role_level__name__icontains=query)
-        )
-    context = {'form':form,'query':query,'developers':developers}
-
-    return render(request, 'jobs/search_developers.html', context)
