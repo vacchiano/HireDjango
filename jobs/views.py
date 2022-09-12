@@ -108,6 +108,7 @@ def handle_login(request):
 
 def search_developers(request):
     form = DeverloperSearchForm
+    developers = None
     query = request.GET.get("search_profile")
     if query:
         developers = Freelancer.objects.exclude(search_status="invisible").filter(
