@@ -2,7 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
-    pass
+    
+    def save(self, *args, **kwargs):
+        self.username = self.username.replace('.','-')
+        super().save(*args, **kwargs)
 
     def get_freelancer(self):
         # print('checking freelancer')
