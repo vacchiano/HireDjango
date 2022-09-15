@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
@@ -23,3 +23,14 @@ class JobsViewTestCase(TestCase):
         freelancer = Freelancer.objects.get(owner__username='testuser')
         response = self.client.get(reverse('freelancer-detail', kwargs={'username': freelancer.owner.username}))
         self.assertEqual(response.status_code, 200)
+
+
+class TestJodDeveloperList(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_developer_list_url(self):
+        url = reverse('list-developers')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'jobs/freelancer_list.html')

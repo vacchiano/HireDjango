@@ -2,7 +2,8 @@ from django.urls import path
 
 from .views import (BusinessCreateView, FreelancerCreateView,
                     FreelancerDetailView, FreelancerUpdateView, about,
-                    handle_login, index, list_developers, pricing, profile)
+                    handle_login, index, list_developers, pricing, profile
+                    )
 
 urlpatterns = [
     path('', index, name='home'),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('business/create/', BusinessCreateView.as_view(), name="business-create"),
     path('developers/',list_developers,name="list-developers"),
     path('developer/<slug:username>/', FreelancerDetailView.as_view(), name='freelancer-detail'),
+
 ]
