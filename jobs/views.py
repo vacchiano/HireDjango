@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from jobs.forms import DeverloperSearchForm, FreelancerForm
 
@@ -59,7 +60,21 @@ def list_developers(request):
         # Q(role_type__name__icontains=query)|
         Q(role_level__name__icontains=query)
         )
-    context = {'developers':developers,'form':form,'query':query}
+
+
+    # Change the count as per requirements 
+    if len(developers) > 4:
+        all_developers = Paginator(developers, 4)
+        page = request.GET.get('page', 1)
+        try:
+            page_developers = all_developers.page(page)
+        except PageNotAnInteger:
+            page_developers = all_developers.page(1)
+        except EmptyPage:
+            page_developers = all_developers.page(all_developers.num_pages)
+        context = {'developers':page_developers, 'form':form, 'query':query, 'page_range': all_developers.get_elided_page_range(number=page), 'pagination': True}
+    else:
+        context = {'developers':developers, 'form':form, 'query':query, 'pagination': False}
 
     return render(request, 'jobs/freelancer_list.html', context)
 

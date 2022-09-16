@@ -1,71 +1,193 @@
-{% extends 'jobs/_base.html' %}
-{% load tailwind_filters %}
-{% block content %}
-    <div class="mx-auto max-w-5xl">
-        <h1 class="text-4xl text-center sm:text-left text-gray-800 font-bold">Hire Django Developers</h1>
-        <div class="flex flex-col sm:flex-row items-center justify-between my-8">
-            {%  include 'jobs/partials/profile_search_form.html' %}
-            {% if not user.is_authenticated %}
-            <a class="flex items-center w-3/4 sm:w-fit mt-4 sm:mt-0 px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md" href="{% url 'account_signup' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1.5 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
-                </svg>
-                Add my profile
-            </a>
-            {% endif %}
+{% extends 'jobs/_base.html' %} {% load tailwind_filters %} {% block content %}
+<div class="mx-auto max-w-5xl">
+  <h1 class="text-4xl text-center sm:text-left text-gray-800 font-bold">
+    Hire Django Developers
+  </h1>
+  <div class="flex flex-col sm:flex-row items-center justify-between my-8">
+    {% include 'jobs/partials/profile_search_form.html' %} {% if not user.is_authenticated %}
+    <a
+      class="flex items-center w-3/4 sm:w-fit mt-4 sm:mt-0 px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md"
+      href="{% url 'account_signup' %}"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="-ml-1.5 mr-2 h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      Add my profile
+    </a>
+    {% endif %}
+  </div>
+  {% if query %}
+  <p class="text-gray-500 mb-2 flex">
+    Results for: <span class="text-gray-900">"{{ query }}</span>" |
+    <a
+      href="{% url 'list-developers' %}"
+      class="text-sm ml-1 text-gray-900 flex items-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 mr-0.5 text-gray-900"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      Clear
+    </a>
+  </p>
+  {% endif %}
+
+  <div class="shadow bg-white divide-y divide-gray-200 rounded-md py-2">
+    {% for freelancer in developers %}
+    <div>
+      <a href="{% url 'freelancer-detail' freelancer.owner.username %}">
+        <div class="p-6 flex flex-col sm:flex-row items-center">
+          {% if freelancer.profile_pic %}
+          <img
+            class="w-24 h-24 sm:w-32 sm:h-32 ring ring-gray-200 rounded-full mr-4 shrink-0 object-cover"
+            src="{{ freelancer.profile_pic.url }}"
+            alt="Profile pic"
+          />
+          {% else %}
+          <img
+            class="w-24 h-24 sm:w-32 sm:h-32 ring ring-gray-200 rounded-full mr-4 shrink-0 object-cover"
+            src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc"
+            alt="Profile pic"
+          />
+          {% endif %}
+          <div>
+            <p class="text-lg md:text-2xl font-semibold break-words">
+              {{freelancer.tagline|truncatewords:15}}
+            </p>
+            <p class="text-gray-700 text-sm sm:text-lg pt-2 break-words">
+              {{freelancer.bio|truncatewords:20}}
+            </p>
+          </div>
         </div>
-        {% if query %}
-        <p class="text-gray-500 mb-2 flex">
-            Results for: <span class="text-gray-900">"{{ query }}</span>" |
-            <a href="{% url 'list-developers' %}" class="text-sm ml-1 text-gray-900 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-0.5 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Clear
-            </a>
-        </p>
-        {% endif %}
-        <div class="shadow bg-white divide-y divide-gray-200 rounded-md py-2">
-            {% for freelancer in developers %}
-            <div>
-                <a href="{% url 'freelancer-detail' freelancer.owner.username %}">
-                    <div class="p-6 flex flex-col sm:flex-row items-center">
-                        {% if freelancer.profile_pic %}
-                            <img class="w-24 h-24 sm:w-32 sm:h-32 ring ring-gray-200 rounded-full mr-4 shrink-0 object-cover" src="{{ freelancer.profile_pic.url }}" alt="Profile pic">
-                        {% else %}
-                            <img class="w-24 h-24 sm:w-32 sm:h-32 ring ring-gray-200 rounded-full mr-4 shrink-0 object-cover" src="https://www.clevelandcitycouncil.org/sites/default/files/styles/ward_person_image/public/2021-11/placeholderperson.png?itok=DSjhVCkc" alt="Profile pic">
-                        {% endif %}
-                        <div>
-                            <p class="text-lg md:text-2xl font-semibold break-words">
-                                {{freelancer.tagline|truncatewords:15}}
-                            </p>
-                            <p class="text-gray-700 text-sm sm:text-lg pt-2 break-words">
-                                {{freelancer.bio|truncatewords:20}}
-                            </p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-        {% if not user.is_authenticated %}
-        <hr class="my-4 md:my-10 xl:my-20">
-        <div>
-            <a href="{% url 'account_signup' %}">
-                <div class="p-6 flex items-center border-2 border-gray-300 hover:border-green-300 border-dashed rounded-md">
-                    <img class="w-24 h-24 sm:w-32 sm:h-32 border rounded-full mr-4 flex-0" src="https://cdn1.vectorstock.com/i/thumb-large/00/65/user-profile-grey-icon-web-avatar-employee-vector-32550065.jpg" alt="Profile pic">
-                    <div>
-                        <p class="text-lg md:text-2xl font-semibold break-words">
-                            This could be you!
-                        </p>
-                        <p class="text-gray-700 text-sm sm:text-lg pt-2 break-words">
-                            Create your free developer profile and get hired today. <span class="underline">Get started!</span>
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        {% endif %}
+      </a>
     </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination starts -->
+  {% if pagination %}
+  <div class="flex justify-center mt-3">
+    <nav aria-label="Page navigation example">
+      <ul class="flex list-style-none">
+        {% if developers.has_previous %}
+        <li class="page-item">
+          <a
+            class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 focus:shadow-none hover:bg-gray-200"
+            href="?page={{developers.previous_page_number}}"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a
+            class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 focus:shadow-none"
+            aria-label="Previous"
+            aria-disabled="true"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% for i in page_range|default_if_none:developers.paginator.get_elided_page_range %}
+        {% if developers.number == i %}
+        <li class="page-item">
+          <a
+            class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href="#"
+            >{{developers.number}}</a
+          >
+        </li>
+        {% else %}
+        {% if i == developers.paginator.ELLIPSIS %}
+        <li class="page-item">
+          <span>{{i}}</span>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a
+            class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href="?page={{i}}""
+            >{{i}}</a
+          >
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% if developers.has_next %}
+        <li class="page-item">
+          <a
+            class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+            href="?page={{developers.next_page_number}}"
+            aria-label="Next"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a
+            class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 focus:shadow-none"
+            aria-label="Next"
+            aria-disabled="true"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+  <!-- Pagination ends -->
+
+  {% if not user.is_authenticated %}
+  <hr class="my-4 md:my-10 xl:my-20" />
+  <div>
+    <a href="{% url 'account_signup' %}">
+      <div
+        class="p-6 flex items-center border-2 border-gray-300 hover:border-green-300 border-dashed rounded-md"
+      >
+        <img
+          class="w-24 h-24 sm:w-32 sm:h-32 border rounded-full mr-4 flex-0"
+          src="https://cdn1.vectorstock.com/i/thumb-large/00/65/user-profile-grey-icon-web-avatar-employee-vector-32550065.jpg"
+          alt="Profile pic"
+        />
+        <div>
+          <p class="text-lg md:text-2xl font-semibold break-words">
+            This could be you!
+          </p>
+          <p class="text-gray-700 text-sm sm:text-lg pt-2 break-words">
+            Create your free developer profile and get hired today.
+            <span class="underline">Get started!</span>
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+</div>
 
 {% endblock content %}
